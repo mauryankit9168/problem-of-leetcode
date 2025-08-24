@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int climbingStair(vector<int>& cost, int n, vector<int>& dp) {
+        if (n == 0 || n == 1) {
+            return cost[n];   //base case
+        }
+        if (dp[n] != -1) {
+            return dp[n];     //if they are found in dp vector then no need explore further
+        }
+        dp[n] = min(climbingStair(cost, n - 1, dp),climbingStair(cost, n - 2, dp)) + cost[n];   //store in dp
+        return dp[n];      
+    }
+    int minCostClimbingStairs(vector<int>& cost) {
+        int n = cost.size();
+        vector<int> dp(n + 1, -1);
+        return min(climbingStair(cost, n - 1, dp), climbingStair(cost, n - 2, dp));
+    }
+};
