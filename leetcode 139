@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool wordBreakHelper(string s, int i,unordered_set<string>&mp,vector<int>&dp){
+        if(i==s.length()){
+            return true;
+        }
+        if(dp[i]!=-1) return dp[i];
+        for(int e=i+1;e<=s.length();e++){
+             string temp=s.substr(i,e-i);
+            if((mp.find(temp)!=mp.end())&& wordBreakHelper(s,e,mp,dp)){
+                return dp[i]=true;
+            }
+        }
+        return dp[i]=false;
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_set<string>mp(wordDict.begin(),wordDict.end());
+        vector<int>dp(s.length(),-1);
+        return wordBreakHelper(s,0,mp,dp);
+    }
+};
