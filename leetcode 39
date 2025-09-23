@@ -1,0 +1,22 @@
+class Solution {
+public:
+    void combination(vector<int>& arr, int targ, int i, vector<int>& ans,
+                     vector<vector<int>>& result, int sum) {
+        if(sum==targ){
+            result.push_back({ans});
+            return;
+        }
+        if(sum>targ || i>=arr.size()) return;
+        ans.push_back(arr[i]);
+        combination(arr, targ, i, ans, result, sum+arr[i]);
+        ans.pop_back();
+        combination(arr, targ, i + 1, ans, result, sum);
+    }
+    vector<vector<int>> combinationSum(vector<int>& cand, int targ) {
+        vector<vector<int>> result;
+        vector<int> ans;
+        int sum = 0;
+        combination(cand, targ, 0, ans, result, sum);
+        return result;
+    }
+};
