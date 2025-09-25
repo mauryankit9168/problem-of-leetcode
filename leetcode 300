@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int lis(vector<int>& arr, int i, int prev, vector<vector<int>> &dp) {
+        if (i == arr.size()) {
+            return 0;
+        }
+        if (dp[i][prev+1] != -1)
+            return dp[i][prev+1];
+        int notpick = lis(arr, i + 1, prev, dp);
+        int pick = 0;
+        if (prev == -1 || arr[i] > arr[prev]) {
+            pick = 1 + lis(arr, i + 1, i, dp);
+        }
+        return dp[i][prev+1] = max(pick, notpick);
+    }
+    int lengthOfLIS(vector<int>& nums) {
+        vector<vector<int>> dp(nums.size(),vector<int>(nums.size()+ 1, -1));
+        return lis(nums, 0, -1, dp);
+    }
+};
